@@ -1,82 +1,83 @@
-# TaskFlow — Frontend para ToDoList API
+# TaskFlow — Frontend for ToDoList API
 
-Interface React + Vite para a API .NET de gerenciamento de tarefas.
+React + Vite interface for the .NET task management API.
 
-## Pré-requisitos
+## Prerequisites
 
 - Node.js 18+
-- API .NET rodando em `https://localhost:7001`
+- .NET API running at `https://localhost:7001`
 
-## Instalação e uso
+## Installation and Usage
 
 ```bash
-# Instale as dependências
+# Install dependencies
 npm install
 
-# Inicie o servidor de desenvolvimento
+# Start the development server
 npm run dev
 ```
 
-Acesse: **http://localhost:5173**
+Access: **http://localhost:5173**
 
-## Configuração da API
+## API Configuration
 
-O proxy está configurado em `vite.config.js`. Por padrão, todas as requisições para `/api/*` são redirecionadas para `https://localhost:7001`.
+The proxy is configured in `vite.config.js`. By default, all requests to `/api/*` are redirected to `https://localhost:7001`.
 
-Se sua API rodar em outra porta, edite o `target` em `vite.config.js`:
+If your API runs on a different port, edit the `target` in `vite.config.js`:
 
 ```js
 proxy: {
   '/api': {
-    target: 'https://localhost:SUA_PORTA',
+    target: 'https://localhost:YOUR_PORT',
     changeOrigin: true,
     secure: false,
   },
 },
 ```
 
-## Estrutura
+## Structure
 
 ```
 src/
 ├── context/
-│   ├── AuthContext.jsx     # Contexto de autenticação (JWT)
-│   └── ToastContext.jsx    # Notificações toast
+│   ├── AuthContext.jsx     # Authentication context (JWT)
+│   └── ToastContext.jsx    # Toast notifications
 ├── services/
-│   └── api.js              # Chamadas à API (auth, tarefas, comentários)
+│   └── api.js              # API calls (auth, tasks, comments)
 ├── components/
-│   ├── AppLayout.jsx       # Sidebar + layout principal
-│   └── TarefaModal.jsx     # Modal de criar/editar tarefa
+│   ├── AppLayout.jsx       # Sidebar + main layout
+│   └── TarefaModal.jsx     # Create/edit task modal
 ├── pages/
-│   ├── LandingPage.jsx     # Página inicial pública
+│   ├── LandingPage.jsx     # Public landing page
 │   ├── LoginPage.jsx       # Login
-│   ├── RegisterPage.jsx    # Cadastro
-│   ├── DashboardPage.jsx   # Painel com resumo e estatísticas
-│   ├── TarefasPage.jsx     # Lista de tarefas com CRUD
-│   └── TarefaDetailPage.jsx # Detalhe da tarefa + comentários
-└── App.jsx                 # Roteamento
+│   ├── RegisterPage.jsx   # Sign up
+│   ├── DashboardPage.jsx  # Dashboard with summary and statistics
+│   ├── TarefasPage.jsx    # Task list with CRUD
+│   └── TarefaDetailPage.jsx # Task details + comments
+└── App.jsx                # Routing
 ```
 
-## Rotas
+## Routes
 
-| Rota              | Descrição              |
-|-------------------|------------------------|
-| `/`               | Landing page           |
-| `/login`          | Login                  |
-| `/register`       | Cadastro               |
-| `/app`            | Dashboard (protegida)  |
-| `/app/tarefas`    | Tarefas (protegida)    |
-| `/app/tarefas/:id`| Detalhe (protegida)    |
+| Route              | Description           |
+| ------------------ | --------------------- |
+| `/`                | Landing page          |
+| `/login`           | Login                 |
+| `/register`        | Sign up               |
+| `/app`             | Dashboard (protected) |
+| `/app/tarefas`     | Tasks (protected)     |
+| `/app/tarefas/:id` | Details (protected)   |
 
-## Funcionalidades
 
-- ✅ Landing page com preview visual
-- ✅ Cadastro e login com JWT
-- ✅ Dashboard com estatísticas e progresso
-- ✅ Listar, criar, editar e excluir tarefas
-- ✅ Marcar tarefa como concluída/pendente
-- ✅ Filtro por status e busca por texto
-- ✅ Detalhe da tarefa com comentários
-- ✅ Adicionar e excluir comentários
-- ✅ Notificações toast
-- ✅ Proteção de rotas por autenticação
+## Features
+
+- ✅ Landing page with visual preview
+- ✅ Sign up and login with JWT
+- ✅ Dashboard with statistics and progress
+- ✅ List, create, edit, and delete tasks
+- ✅ Mark tasks as completed/pending
+- ✅ Filter by status and search by text
+- ✅ Task details with comments
+- ✅ Add and delete comments
+- ✅ Toast notifications
+- ✅ Route protection via authentication
