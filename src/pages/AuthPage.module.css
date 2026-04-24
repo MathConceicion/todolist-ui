@@ -1,0 +1,119 @@
+.page {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  min-height: 100vh;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--canvas-raised);
+  border-right: 1px solid var(--border);
+  padding: 0;
+}
+
+.panelBrand {
+  padding: 28px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+
+.logo em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.panelBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.title {
+  font-size: 32px;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.switchText {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.switchLink {
+  color: var(--gold-dark);
+  font-weight: 500;
+}
+
+.switchLink:hover {
+  text-decoration: underline;
+}
+
+/* ── Decoration panel ── */
+.decoration {
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.decorGrid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  opacity: 0.06;
+}
+
+.decorCell {
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.quote {
+  position: relative;
+  z-index: 1;
+  max-width: 380px;
+  text-align: center;
+}
+
+.quote p {
+  font-size: 22px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.quote cite {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  font-style: normal;
+  letter-spacing: 0.5px;
+}

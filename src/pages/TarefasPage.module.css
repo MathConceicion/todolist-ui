@@ -1,0 +1,187 @@
+.page {
+  padding: 40px 48px;
+  max-width: 860px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 30px;
+  color: var(--ink);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.filterTabs {
+  display: flex;
+  background: var(--canvas-sunken);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  gap: 2px;
+}
+
+.filterTab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.filterTab:hover {
+  color: var(--ink);
+}
+
+.filterTabActive {
+  background: var(--canvas-raised);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.filterCount {
+  background: var(--border);
+  color: var(--ink-muted);
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+
+.filterTabActive .filterCount {
+  background: var(--gold-bg);
+  color: var(--gold-dark);
+}
+
+.searchInput {
+  max-width: 240px;
+  margin-left: auto;
+  padding: 8px 14px;
+}
+
+/* ── Task list ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  transition: all 0.15s;
+}
+
+.taskCard:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.checkBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-top: 1px;
+}
+
+.checkBtn:hover {
+  border-color: var(--gold);
+}
+
+.checkBtnDone {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.taskBody {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.taskTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.taskTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskTitleDone {
+  text-decoration: line-through;
+  color: var(--ink-faint);
+}
+
+.taskDesc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskMeta {
+  display: flex;
+  gap: 14px;
+}
+
+.metaItem {
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.taskActions {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.taskCard:hover .taskActions {
+  opacity: 1;
+}
