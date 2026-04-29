@@ -94,7 +94,7 @@
 }
 
 .decorCell {
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .quote {
@@ -106,14 +106,97 @@
 
 .quote p {
   font-size: 22px;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
   margin-bottom: 20px;
 }
 
 .quote cite {
   font-size: 13px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255, 255, 255, 0.35);
   font-style: normal;
   letter-spacing: 0.5px;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVIDADE
+   ════════════════════════════════════ */
+
+/* ── Tablet (≤ 900px) — painel ocupa mais espaço ── */
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .panelBody {
+    padding: 40px 32px;
+  }
+
+  .panelBrand {
+    padding: 24px 32px;
+  }
+
+  .decoration {
+    padding: 40px 32px;
+  }
+
+  .quote p {
+    font-size: 18px;
+  }
+}
+
+/* ── Tablet pequeno (≤ 680px) — decoração some, formulário ocupa tudo ── */
+@media (max-width: 680px) {
+  .page {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+
+  .panel {
+    border-right: none;
+    min-height: 100vh;
+  }
+
+  /* Esconde o painel decorativo */
+  .decoration {
+    display: none;
+  }
+
+  .panelBrand {
+    padding: 20px 24px;
+  }
+
+  .panelBody {
+    padding: 40px 24px;
+    justify-content: flex-start;
+    padding-top: 48px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+}
+
+/* ── Mobile (≤ 420px) ── */
+@media (max-width: 420px) {
+  .panelBrand {
+    padding: 18px 20px;
+  }
+
+  .panelBody {
+    padding: 36px 20px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .form {
+    gap: 16px;
+  }
 }

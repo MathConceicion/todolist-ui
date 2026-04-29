@@ -72,11 +72,11 @@ export default function LandingPage() {
               <span className={styles.vcBadge}>4 pendentes</span>
             </div>
             {[
-              { text: 'Revisar documentação da API', done: true },
-              { text: 'Implementar autenticação JWT', done: true },
-              { text: 'Criar tela de dashboard', done: false },
-              { text: 'Escrever testes unitários', done: false },
-              { text: 'Deploy em produção', done: false },
+              { text: 'Fazer exercícios físicos', done: true },
+              { text: 'Beber 2L de água', done: true },
+              { text: 'Organizar o quarto', done: false },
+              { text: 'Lavar roupa', done: false },
+              { text: 'Preparar refeições da semana', done: false },
             ].map((t, i) => (
               <div key={i} className={styles.vcTask}>
                 <div className={`${styles.vcCheck} ${t.done ? styles.vcCheckDone : ''}`}>
@@ -104,7 +104,7 @@ export default function LandingPage() {
             <div className={styles.fcAvatar}>JP</div>
             <div>
               <p className={styles.fcName}>João Paulo</p>
-              <p className={styles.fcText}>Lembre de incluir validação de entrada 👍</p>
+              <p className={styles.fcText}>Compra pão quando sair🥖</p>
             </div>
           </div>
         </div>

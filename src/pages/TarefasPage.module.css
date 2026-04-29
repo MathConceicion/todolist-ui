@@ -8,6 +8,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 32px;
+  gap: 16px;
 }
 
 .title {
@@ -27,6 +28,7 @@
   align-items: center;
   gap: 16px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .filterTabs {
@@ -184,4 +186,89 @@
 
 .taskCard:hover .taskActions {
   opacity: 1;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVIDADE
+   ════════════════════════════════════ */
+
+/* ── Tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+  .page {
+    padding: 28px 24px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .toolbar {
+    gap: 10px;
+  }
+
+  .searchInput {
+    max-width: 100%;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* Ações sempre visíveis no touch */
+  .taskActions {
+    opacity: 1;
+  }
+
+  .taskCard:hover {
+    box-shadow: none;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .page {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  /* Filtros menores */
+  .filterTab {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .filterCount {
+    display: none;
+  }
+
+  .taskCard {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .taskTitle {
+    font-size: 14px;
+  }
+
+  /* Badge some para não quebrar o layout */
+  .taskTop .badge {
+    display: none;
+  }
+
+  /* Ações ficam menores */
+  .taskActions {
+    gap: 4px;
+  }
 }

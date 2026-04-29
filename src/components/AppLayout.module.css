@@ -3,6 +3,12 @@
   min-height: 100vh;
 }
 
+/* ── Topbar (só mobile) ── */
+.topbar {
+  display: none;
+}
+
+/* ── Sidebar desktop ── */
 .sidebar {
   width: var(--sidebar-width);
   background: var(--ink);
@@ -14,11 +20,15 @@
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  z-index: 200;
 }
 
 .brand {
   padding: 28px 24px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .brandText {
@@ -32,13 +42,29 @@
   color: var(--gold-light);
 }
 
+/* Botão X — escondido no desktop */
+.closeBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.closeBtn:hover {
+  color: #fff;
+}
+
 .userCard {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
   margin: 12px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
 }
 
@@ -71,7 +97,7 @@
 
 .userEmail {
   font-size: 11px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255, 255, 255, 0.4);
   margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
@@ -87,7 +113,7 @@
   font-size: 10px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255, 255, 255, 0.28);
   padding: 0 12px;
   margin-bottom: 6px;
 }
@@ -99,24 +125,24 @@
   padding: 10px 14px;
   border-radius: var(--radius-md);
   font-size: 14px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255, 255, 255, 0.55);
   transition: all 0.15s;
   margin-bottom: 2px;
 }
 
 .navItem:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
 }
 
 .navActive {
-  background: rgba(212,168,67,0.18) !important;
+  background: rgba(212, 168, 67, 0.18) !important;
   color: var(--gold-light) !important;
 }
 
 .sidebarFooter {
   padding: 16px 24px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .logoutBtn {
@@ -125,7 +151,7 @@
   gap: 8px;
   background: none;
   border: none;
-  color: rgba(255,255,255,0.38);
+  color: rgba(255, 255, 255, 0.38);
   font-family: inherit;
   font-size: 13px;
   cursor: pointer;
@@ -137,8 +163,130 @@
   color: var(--gold-light);
 }
 
+/* ── Overlay ── */
+.overlay {
+  display: none;
+}
+
 .main {
   flex: 1;
   min-width: 0;
   overflow-y: auto;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVIDADE
+   ════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* Layout vira coluna */
+  .layout {
+    flex-direction: column;
+  }
+
+  /* Topbar aparece */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 56px;
+    background: var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-shrink: 0;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+
+  .hamburger:hover {
+    color: #fff;
+  }
+
+  .topbarLogo {
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .topbarLogo em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .topbarAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Sidebar vira drawer lateral */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 300;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  /* Botão X aparece no mobile */
+  .closeBtn {
+    display: flex;
+  }
+
+  /* Overlay escuro aparece */
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 250;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Main ocupa tudo */
+  .main {
+    min-height: calc(100vh - 56px);
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+  }
 }

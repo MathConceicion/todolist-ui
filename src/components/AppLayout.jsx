@@ -1,4 +1,5 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import styles from './AppLayout.module.css'
 
@@ -21,15 +22,34 @@ const IconLogout = () => (
   </svg>
 )
 
-const IconUser = () => (
-  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" />
+const IconMenu = () => (
+  <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+)
+
+const IconX = () => (
+  <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path d="M18 6L6 18M6 6l12 12" />
   </svg>
 )
 
 export default function AppLayout() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Fecha menu ao trocar de rota
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  // Trava scroll do body quando menu aberto
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   function handleLogout() {
     logout()
@@ -40,47 +60,74 @@ export default function AppLayout() {
     ? user.nome.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase()
     : 'U'
 
+  const sidebarContent = (
+    <>
+      <div className={styles.brand}>
+        <span className={`${styles.brandText} serif`}>Task<em>Flow</em></span>
+        {/* Botão fechar só no mobile */}
+        <button className={styles.closeBtn} onClick={() => setMenuOpen(false)}>
+          <IconX />
+        </button>
+      </div>
+
+      <div className={styles.userCard}>
+        <div className={styles.avatar}>{initials}</div>
+        <div className={styles.userInfo}>
+          <p className={styles.userName}>{user?.nome || 'Usuário'}</p>
+          <p className={styles.userEmail}>{user?.email || ''}</p>
+        </div>
+      </div>
+
+      <nav className={styles.nav}>
+        <p className={styles.navLabel}>Menu</p>
+
+        <NavLink
+          to="/app"
+          end
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}
+        >
+          <IconGrid /> Dashboard
+        </NavLink>
+
+        <NavLink
+          to="/app/tarefas"
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}
+        >
+          <IconList /> Tarefas
+        </NavLink>
+      </nav>
+
+      <div className={styles.sidebarFooter}>
+        <button className={styles.logoutBtn} onClick={handleLogout}>
+          <IconLogout /> Sair
+        </button>
+      </div>
+    </>
+  )
+
   return (
     <div className={styles.layout}>
-      <aside className={styles.sidebar}>
-        <div className={styles.brand}>
-          <span className={`${styles.brandText} serif`}>Task<em>Flow</em></span>
-        </div>
 
-        <div className={styles.userCard}>
-          <div className={styles.avatar}>{initials}</div>
-          <div className={styles.userInfo}>
-            <p className={styles.userName}>{user?.nome || 'Usuário'}</p>
-            <p className={styles.userEmail}>{user?.email || ''}</p>
-          </div>
-        </div>
+      {/* ── Topbar mobile ── */}
+      <header className={styles.topbar}>
+        <button className={styles.hamburger} onClick={() => setMenuOpen(true)}>
+          <IconMenu />
+        </button>
+        <span className={`${styles.topbarLogo} serif`}>Task<em>Flow</em></span>
+        <div className={styles.topbarAvatar}>{initials}</div>
+      </header>
 
-        <nav className={styles.nav}>
-          <p className={styles.navLabel}>Menu</p>
+      {/* ── Overlay (mobile) ── */}
+      {menuOpen && (
+        <div className={styles.overlay} onClick={() => setMenuOpen(false)} />
+      )}
 
-          <NavLink
-            to="/app"
-            end
-            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}
-          >
-            <IconGrid /> Dashboard
-          </NavLink>
-
-          <NavLink
-            to="/app/tarefas"
-            className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}
-          >
-            <IconList /> Tarefas
-          </NavLink>
-        </nav>
-
-        <div className={styles.sidebarFooter}>
-          <button className={styles.logoutBtn} onClick={handleLogout}>
-            <IconLogout /> Sair
-          </button>
-        </div>
+      {/* ── Sidebar ── */}
+      <aside className={`${styles.sidebar} ${menuOpen ? styles.sidebarOpen : ''}`}>
+        {sidebarContent}
       </aside>
 
+      {/* ── Conteúdo principal ── */}
       <main className={styles.main}>
         <Outlet />
       </main>

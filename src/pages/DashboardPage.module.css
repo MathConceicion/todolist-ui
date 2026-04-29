@@ -8,6 +8,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 36px;
+  gap: 16px;
 }
 
 .title {
@@ -199,4 +200,93 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVIDADE
+   ════════════════════════════════════ */
+
+/* ── Tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+  .page {
+    padding: 28px 24px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  /* Stats: 2x2 */
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .recentItem:hover {
+    transform: none;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .page {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  /* Stats: empilha em coluna única */
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .statCard {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .statIconWrap {
+    width: 34px;
+    height: 34px;
+  }
+
+  .statValue {
+    font-size: 24px;
+  }
+
+  .progressCard {
+    padding: 14px;
+  }
+
+  .recentTitle {
+    font-size: 18px;
+  }
+
+  .recentItem {
+    padding: 14px 16px;
+  }
+
+  /* Badge some no mobile para não quebrar linha */
+  .recentItem .badge {
+    display: none;
+  }
 }
