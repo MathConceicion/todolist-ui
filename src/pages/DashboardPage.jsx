@@ -6,19 +6,32 @@ import styles from './DashboardPage.module.css'
 
 const IconCheck = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M5 13l4 4L19 7"/>
+    <path d="M5 13l4 4L19 7" />
   </svg>
 )
 
 const IconClock = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
   </svg>
 )
 
 const IconTotal = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+  </svg>
+)
+
+const IconWave = () => (
+  <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.6">
+    <path d="M12 3v1M12 20v1M4.22 4.22l.7.7M18.36 18.36l.7.7M3 12h1M20 12h1M4.92 19.07l.7-.7M18.36 5.64l.7-.7" />
+    <circle cx="12" cy="12" r="4" />
+  </svg>
+)
+
+const IconClipboard = () => (
+  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.4">
+    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h4" />
   </svg>
 )
 
@@ -49,7 +62,7 @@ export default function DashboardPage() {
       <div className={styles.header}>
         <div>
           <h1 className={`${styles.title} serif`}>
-            {saudacao}, {user?.nome?.split(' ')[0] || 'usuário'} 👋
+            {saudacao}, {user?.nome?.split(' ')[0] || 'usuário'} <span className={styles.waveIcon}><IconWave /></span>
           </h1>
           <p className={styles.subtitle}>
             {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
@@ -121,7 +134,7 @@ export default function DashboardPage() {
           </div>
         ) : recentes.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📋</div>
+            <div className="empty-icon" style={{ color: 'var(--ink-faint)' }}><IconClipboard /></div>
             <p className="empty-title">Nenhuma tarefa ainda</p>
             <p className="empty-desc">Crie sua primeira tarefa na aba Tarefas</p>
           </div>
@@ -136,7 +149,7 @@ export default function DashboardPage() {
                 <div className={`${styles.recentCheck} ${t.concluida ? styles.recentCheckDone : ''}`}>
                   {t.concluida && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                      <path d="M5 13l4 4L19 7"/>
+                      <path d="M5 13l4 4L19 7" />
                     </svg>
                   )}
                 </div>

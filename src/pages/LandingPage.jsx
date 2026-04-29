@@ -82,7 +82,7 @@ export default function LandingPage() {
                 <div className={`${styles.vcCheck} ${t.done ? styles.vcCheckDone : ''}`}>
                   {t.done && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3">
-                      <path d="M5 13l4 4L19 7"/>
+                      <path d="M5 13l4 4L19 7" />
                     </svg>
                   )}
                 </div>
@@ -145,7 +145,7 @@ export default function LandingPage() {
       {/* ── Footer ── */}
       <footer className={styles.footer}>
         <span className={`${styles.logo} serif`} style={{ fontSize: '16px' }}>Task<em>Flow</em></span>
-        <span className={styles.footerCopy}>© 2026 TaskFlow. Feito com React + .NET</span>
+        <span className={styles.footerCopy}>© 2026 TaskFlow</span>
       </footer>
     </div>
   )
