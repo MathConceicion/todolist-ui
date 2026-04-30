@@ -7,7 +7,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   gap: 16px;
 }
 
@@ -20,13 +20,25 @@
   font-size: 14px;
   color: var(--ink-muted);
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.kbdHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-faint);
 }
 
 /* ── Toolbar ── */
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
@@ -55,16 +67,8 @@
   transition: all 0.15s;
   white-space: nowrap;
 }
-
-.filterTab:hover {
-  color: var(--ink);
-}
-
-.filterTabActive {
-  background: var(--canvas-raised);
-  color: var(--ink);
-  box-shadow: var(--shadow-sm);
-}
+.filterTab:hover { color: var(--ink); }
+.filterTabActive { background: var(--canvas-raised); color: var(--ink); box-shadow: var(--shadow-sm); }
 
 .filterCount {
   background: var(--border);
@@ -73,19 +77,123 @@
   padding: 1px 6px;
   border-radius: 99px;
 }
+.filterTabActive .filterCount { background: var(--gold-bg); color: var(--gold-dark); }
 
-.filterTabActive .filterCount {
-  background: var(--gold-bg);
-  color: var(--gold-dark);
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+/* ── Search ── */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--canvas-raised);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  color: var(--ink-muted);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.searchWrap:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,168,67,0.12);
+  color: var(--ink);
 }
 
 .searchInput {
-  max-width: 240px;
-  margin-left: auto;
-  padding: 8px 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--ink);
+  width: 180px;
+}
+.searchInput::placeholder { color: var(--ink-faint); }
+
+/* ── Sort ── */
+.sortWrap { position: relative; }
+
+.sortBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--canvas-raised);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.sortBtn:hover { color: var(--ink); border-color: var(--border-strong); }
+.sortBtnActive { border-color: var(--gold); color: var(--ink); }
+
+.sortLabel { font-size: 12px; }
+
+.sortDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--canvas-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 160px;
+  z-index: 100;
+  overflow: hidden;
+  animation: slideUp 0.15s ease;
 }
 
-/* ── Task list ── */
+.sortOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.1s;
+  text-align: left;
+}
+.sortOption:hover { background: var(--canvas-sunken); }
+.sortOptionActive { color: var(--gold-dark); font-weight: 500; }
+
+/* ── View toggle ── */
+.viewToggle {
+  display: flex;
+  background: var(--canvas-sunken);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  gap: 2px;
+}
+
+.viewBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.viewBtn:hover { color: var(--ink); }
+.viewBtnActive { background: var(--canvas-raised); color: var(--ink); box-shadow: var(--shadow-sm); }
+
+/* ── List view ── */
 .list {
   display: flex;
   flex-direction: column;
@@ -98,11 +206,13 @@
   gap: 14px;
   padding: 18px 20px;
   transition: all 0.15s;
+  animation: fadeIn 0.2s ease;
 }
+.taskCard:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
 
-.taskCard:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .checkBtn {
@@ -119,21 +229,10 @@
   transition: all 0.2s;
   margin-top: 1px;
 }
+.checkBtn:hover { border-color: var(--gold); }
+.checkBtnDone { background: var(--gold); border-color: var(--gold); }
 
-.checkBtn:hover {
-  border-color: var(--gold);
-}
-
-.checkBtnDone {
-  background: var(--gold);
-  border-color: var(--gold);
-}
-
-.taskBody {
-  flex: 1;
-  min-width: 0;
-  cursor: pointer;
-}
+.taskBody { flex: 1; min-width: 0; cursor: pointer; }
 
 .taskTop {
   display: flex;
@@ -151,11 +250,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.taskTitleDone {
-  text-decoration: line-through;
-  color: var(--ink-faint);
-}
+.taskTitleDone { text-decoration: line-through; color: var(--ink-faint); }
 
 .taskDesc {
   font-size: 13px;
@@ -166,14 +261,14 @@
   text-overflow: ellipsis;
 }
 
-.taskMeta {
-  display: flex;
-  gap: 14px;
-}
+.taskMeta { display: flex; gap: 14px; }
 
 .metaItem {
   font-size: 12px;
   color: var(--ink-faint);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .taskActions {
@@ -183,92 +278,179 @@
   transition: opacity 0.15s;
   flex-shrink: 0;
 }
+.taskCard:hover .taskActions { opacity: 1; }
 
-.taskCard:hover .taskActions {
-  opacity: 1;
+/* ── Kanban ── */
+.kanbanBoard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.kanbanCol {
+  background: var(--canvas-sunken);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+  min-height: 300px;
+}
+
+.kanbanColOver {
+  border-color: var(--gold);
+  background: var(--gold-bg);
+}
+
+.kanbanHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+}
+
+.kanbanHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kanbanDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.kanbanTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kanbanCount {
+  background: var(--border-strong);
+  color: var(--ink-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 99px;
+}
+
+.kanbanAddBtn {
+  background: none;
+  border: none;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s;
+}
+.kanbanAddBtn:hover { background: var(--border); color: var(--ink); }
+
+.kanbanCards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 12px 16px;
+}
+
+.kanbanEmpty {
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 13px;
+  color: var(--ink-faint);
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+.kanbanCard {
+  padding: 14px 16px;
+  cursor: grab;
+  transition: all 0.15s;
+  animation: fadeIn 0.2s ease;
+  border-radius: var(--radius-md) !important;
+}
+.kanbanCard:hover { box-shadow: var(--shadow-md); }
+.kanbanCard:active { cursor: grabbing; }
+
+.kanbanCardBody { cursor: pointer; }
+
+.kanbanCardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.kanbanCardDesc {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kanbanCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kanbanCardActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
 }
 
 /* ════════════════════════════════════
    RESPONSIVIDADE
    ════════════════════════════════════ */
 
-/* ── Tablet (≤ 768px) ── */
-@media (max-width: 768px) {
-  .page {
-    padding: 28px 24px;
-  }
-
-  .header {
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .header button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .title {
-    font-size: 26px;
-  }
-
-  .toolbar {
-    gap: 10px;
-  }
-
-  .searchInput {
-    max-width: 100%;
-    margin-left: 0;
-    width: 100%;
-  }
-
-  /* Ações sempre visíveis no touch */
-  .taskActions {
-    opacity: 1;
-  }
-
-  .taskCard:hover {
-    box-shadow: none;
+@media (max-width: 900px) {
+  .kanbanBoard {
+    grid-template-columns: 1fr;
   }
 }
 
-/* ── Mobile (≤ 480px) ── */
+@media (max-width: 768px) {
+  .page { padding: 28px 24px; }
+
+  .header { flex-direction: column; gap: 16px; margin-bottom: 20px; }
+  .header button { width: 100%; justify-content: center; }
+  .title { font-size: 26px; }
+  .kbdHint { display: none; }
+
+  .toolbar { gap: 8px; }
+  .toolbarRight { width: 100%; }
+
+  .searchWrap { flex: 1; }
+  .searchInput { width: 100%; }
+
+  .sortLabel { display: none; }
+
+  .taskActions { opacity: 1; }
+  .taskCard:hover { box-shadow: none; }
+}
+
 @media (max-width: 480px) {
-  .page {
-    padding: 20px 16px;
-  }
+  .page { padding: 20px 16px; }
+  .title { font-size: 22px; }
 
-  .title {
-    font-size: 22px;
-  }
+  .filterTab { padding: 6px 10px; font-size: 12px; }
+  .filterCount { display: none; }
 
-  /* Filtros menores */
-  .filterTab {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-
-  .filterCount {
-    display: none;
-  }
-
-  .taskCard {
-    padding: 14px 16px;
-    gap: 10px;
-  }
-
-  .taskTitle {
-    font-size: 14px;
-  }
-
-  /* Badge some para não quebrar o layout */
-  .taskTop .badge {
-    display: none;
-  }
-
-  /* Ações ficam menores */
-  .taskActions {
-    gap: 4px;
-  }
+  .taskCard { padding: 14px 16px; gap: 10px; }
+  .taskTitle { font-size: 14px; }
+  .taskTop .badge { display: none; }
+  .taskActions { gap: 4px; }
 }
