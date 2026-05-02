@@ -111,7 +111,7 @@ function TaskCard({ t, onToggle, onEdit, onDelete, onNavigate, toggling, draggab
           <span className={`${styles.taskTitle} ${t.concluida ? styles.taskTitleDone : ''}`}>
             {t.titulo}
           </span>
-          <span className={`badge ${t.concluida ? 'badge-done' : 'badge-pending'}`}>
+          <span className={`${styles.badge} ${t.concluida ? styles.badgeDone : styles.badgePending}`}>
             {t.concluida ? 'Concluída' : 'Pendente'}
           </span>
         </div>
@@ -127,9 +127,9 @@ function TaskCard({ t, onToggle, onEdit, onDelete, onNavigate, toggling, draggab
       </div>
 
       <div className={styles.taskActions}>
-        <button className="btn-icon" onClick={() => onNavigate(t.id)} title="Comentários"><IconComment /></button>
-        <button className="btn-icon" onClick={() => onEdit(t)} title="Editar"><IconEdit /></button>
-        <button className="btn-icon" onClick={() => onDelete(t.id)} title="Excluir" style={{ color: 'var(--red)' }}><IconTrash /></button>
+        <button className={styles.iconBtn} onClick={() => onNavigate(t.id)} title="Comentários"><IconComment /></button>
+        <button className={styles.iconBtn} onClick={() => onEdit(t)} title="Editar"><IconEdit /></button>
+        <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} onClick={() => onDelete(t.id)} title="Excluir"><IconTrash /></button>
       </div>
     </div>
   )
@@ -164,7 +164,7 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
           <div className={styles.kanbanEmpty}>Arraste tarefas aqui</div>
         ) : (
           tarefas.map(t => (
-            <div key={t.id} className={`${styles.kanbanCard} card`}
+            <div key={t.id} className={styles.kanbanCard}
               draggable
               onDragStart={e => e.dataTransfer.setData('tarefaId', t.id)}
             >
@@ -183,11 +183,11 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
                   style={{ width: 20, height: 20 }}
                 >
                   {toggling === t.id
-                    ? <span className="spinner" style={{ width: 10, height: 10, borderWidth: 1.5 }} />
+                    ? <span style={{ width: 10, height: 10, borderWidth: 1.5, border: '1.5px solid #fce7f3', borderTopColor: 'white', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.7s linear infinite' }} />
                     : t.concluida ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M5 13l4 4L19 7"/></svg> : null}
                 </button>
-                <button className="btn-icon" style={{ padding: 4 }} onClick={() => onEdit(t)}><IconEdit /></button>
-                <button className="btn-icon" style={{ padding: 4, color: 'var(--red)' }} onClick={() => onDelete(t.id)}><IconTrash /></button>
+                <button className={styles.iconBtn} style={{ padding: 4 }} onClick={() => onEdit(t)}><IconEdit /></button>
+                <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} style={{ padding: 4 }} onClick={() => onDelete(t.id)}><IconTrash /></button>
               </div>
             </div>
           ))
@@ -340,7 +340,7 @@ export default function TarefasPage() {
             </span>
           </p>
         </div>
-        <button className="btn btn-primary" onClick={handleNew}>
+        <button className={styles.btnMain} onClick={handleNew}>
           <IconPlus /> Nova tarefa
         </button>
       </div>
@@ -462,14 +462,14 @@ export default function TarefasPage() {
         </div>
       ) : filtered.length === 0 ? (
         /* ── Empty ── */
-        <div className="empty-state">
-          <div className="empty-icon" style={{ color: 'var(--ink-faint)' }}>
+        <div className={styles.emptyState}>
+          <div className={styles.emptyIcon} style={{ color: '#f5c6d8' }}>
             {search ? <IconEmptySearch /> : <IconEmptyList />}
           </div>
-          <p className="empty-title">
+          <p className={styles.emptyTitle}>
             {search ? 'Nenhum resultado' : filter === 'concluidas' ? 'Sem concluídas' : 'Nenhuma tarefa'}
           </p>
-          <p className="empty-desc">
+          <p className={styles.emptyDesc}>
             {search ? 'Tente buscar por outro termo' : 'Clique em "Nova tarefa" ou pressione N'}
           </p>
         </div>

@@ -20,6 +20,12 @@ const IconLogout = () => (
     <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
   </svg>
 )
+const IconUser = () => (
+  <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
+  </svg>
+)
 const IconMenu = () => (
   <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
     <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -85,6 +91,9 @@ export default function AppLayout() {
         </NavLink>
         <NavLink to="/app/tarefas" className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}>
           <IconList /> Tarefas
+        </NavLink>
+        <NavLink to="/app/perfil" className={({ isActive }) => `${styles.navItem} ${isActive ? styles.navActive : ''}`}>
+          <IconUser /> Meu Perfil
         </NavLink>
       </nav>
 

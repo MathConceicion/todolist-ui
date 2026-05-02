@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import TarefasPage from './pages/TarefasPage'
 import TarefaDetailPage from './pages/TarefaDetailPage'
+import PerfilPage from './pages/PerfilPage'
 import AppLayout from './components/AppLayout'
 
 function PrivateRoute({ children }) {
@@ -32,10 +33,11 @@ export default function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-              <Route path="/app" element={<AppLayout />}>
+              <Route path="/app" element={<PrivateRoute><AppLayout /></PrivateRoute>}>
                 <Route index element={<DashboardPage />} />
                 <Route path="tarefas" element={<TarefasPage />} />
                 <Route path="tarefas/:id" element={<TarefaDetailPage />} />
+                <Route path="perfil" element={<PerfilPage />} />
               </Route>
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
