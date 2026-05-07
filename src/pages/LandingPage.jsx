@@ -105,8 +105,7 @@ export default function LandingPage() {
               <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#f5c6d8" strokeWidth="1.2">
                 <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
               </svg>
-              <p>seu personagem aqui!</p>
-              <small>public/personagem.png</small>
+              <p>Personagem vai ficar aqui</p>
             </div>
           </div>
           <div className={styles.speechBubble}>
@@ -134,7 +133,7 @@ export default function LandingPage() {
           <h2 className={styles.ctaTitle}>Pronto pra começar?</h2>
           <p className={styles.ctaDesc}>Crie sua conta em segundos — é de graça!</p>
           <button className={styles.ctaBtn} onClick={() => navigate('/register')}>
-            quero entrar! <IconArrow />
+            Quero entrar! <IconArrow />
           </button>
         </div>
       </section>
