@@ -26,7 +26,7 @@ async function request(path, options = {}) {
   return data
 }
 
-// Auth
+// ── Auth ──────────────────────────────────────────
 export const authApi = {
   login: (email, senha) =>
     request('/auth/login', {
@@ -41,7 +41,7 @@ export const authApi = {
     }),
 }
 
-// Tarefas 
+// ── Tarefas ───────────────────────────────────────
 export const tarefaApi = {
   listar: () => request('/tarefa'),
 
@@ -63,7 +63,7 @@ export const tarefaApi = {
     request(`/tarefa/${id}`, { method: 'DELETE' }),
 }
 
-// Comentários
+// ── Comentários ───────────────────────────────────
 export const comentarioApi = {
   listar: (tarefaId) =>
     request(`/tarefas/${tarefaId}/comentarios`),
@@ -77,5 +77,14 @@ export const comentarioApi = {
   deletar: (tarefaId, id) =>
     request(`/tarefas/${tarefaId}/comentarios/${id}`, {
       method: 'DELETE',
+    }),
+}
+
+// ── Perfil ────────────────────────────────────────
+export const perfilApi = {
+  atualizar: (nome, novaSenha) =>
+    request('/auth/perfil', {
+      method: 'PUT',
+      body: JSON.stringify({ nome, novaSenha: novaSenha || undefined }),
     }),
 }
