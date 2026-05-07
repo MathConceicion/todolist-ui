@@ -55,14 +55,7 @@ export default function LoginPage() {
     <div className={styles.page}>
       <div className={styles.charSide}>
         <div className={styles.charWrap}>
-          <img src="/personagem.png" alt="Personagem" className={styles.charImg}
-            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex' }} />
-          <div className={styles.charFallback}>
-            <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="#e8b4d4" strokeWidth="1.2">
-              <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-            <p>Perso vai ficar aqui ó</p>
-          </div>
+          <img src="/personagemLogin.webp" alt="Personagem" className={styles.charImg} />
         </div>
         <div className={styles.charBubble}>
           Que bom te ver!
@@ -81,7 +74,7 @@ export default function LoginPage() {
         <Link to="/" className={styles.logo}>Task<em>Flow</em></Link>
 
         <div className={styles.formBox}>
-          <h1 className={styles.title}>Bem-vinda de volta</h1>
+          <h1 className={styles.title}>Bem-vinda de volta!</h1>
           <p className={styles.subtitle}>Entre na sua conta para continuar</p>
 
           <form onSubmit={handleSubmit} className={styles.form}>

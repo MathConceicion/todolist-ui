@@ -63,17 +63,10 @@ export default function RegisterPage() {
     <div className={styles.page}>
       <div className={styles.charSide}>
         <div className={styles.charWrap}>
-          <img src="/personagem.png" alt="Personagem" className={styles.charImg}
-            onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex' }} />
-          <div className={styles.charFallback}>
-            <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="#e8b4d4" strokeWidth="1.2">
-              <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-            </svg>
-            <p>Personagem vai ficar aqui</p>
-          </div>
+          <img src="/personagemRegister.webp" alt="Personagem" className={styles.charImg} />
         </div>
         <div className={styles.charBubble}>
-          Que feliz que você veio!
+          Fico feliz que você veio!
           <span className={styles.bubbleStar}><IconHeart /></span>
         </div>
         <div className={styles.charDeco}>
@@ -89,7 +82,7 @@ export default function RegisterPage() {
         <Link to="/" className={styles.logo}>Task<em>Flow</em></Link>
 
         <div className={styles.formBox}>
-          <h1 className={styles.title}>Criar sua conta</h1>
+          <h1 className={styles.title}>Crie sua conta!</h1>
           <p className={styles.subtitle}>Vamos começar a organizar juntos</p>
 
           <form onSubmit={handleSubmit} className={styles.form}>
