@@ -7,28 +7,44 @@ import TarefaModal from '../components/TarefaModal'
 import styles from './TarefaDetailPage.module.css'
 
 const IconBack = () => (
-  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+  <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
     <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
   </svg>
 )
-
 const IconTrash = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
     <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
   </svg>
 )
-
 const IconEdit = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
     <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
   </svg>
 )
-
 const IconSend = () => (
-  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
     <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
   </svg>
 )
+const IconInfo = () => (
+  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+  </svg>
+)
+const IconChat = () => (
+  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+  </svg>
+)
+const IconCheck = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
+    <path d="M5 13l4 4L19 7"/>
+  </svg>
+)
+
+function initials(nome) {
+  return (nome || 'U').split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase()
+}
 
 export default function TarefaDetailPage() {
   const { id } = useParams()
@@ -63,11 +79,8 @@ export default function TarefaDetailPage() {
       const updated = await tarefaApi.atualizar(tarefa.id, tarefa.titulo, tarefa.descricao, !tarefa.concluida)
       setTarefa(updated)
       push(updated.concluida ? 'Tarefa concluída!' : 'Tarefa reaberta', 'success')
-    } catch {
-      push('Erro ao atualizar', 'error')
-    } finally {
-      setToggling(false)
-    }
+    } catch { push('Erro ao atualizar', 'error') }
+    finally { setToggling(false) }
   }
 
   async function handleDelete() {
@@ -76,9 +89,7 @@ export default function TarefaDetailPage() {
       await tarefaApi.deletar(id)
       push('Tarefa excluída', 'success')
       navigate('/app/tarefas')
-    } catch {
-      push('Erro ao excluir', 'error')
-    }
+    } catch { push('Erro ao excluir', 'error') }
   }
 
   async function handleEdit(titulo, descricao) {
@@ -87,9 +98,7 @@ export default function TarefaDetailPage() {
       setTarefa(updated)
       push('Tarefa atualizada!', 'success')
       setEditOpen(false)
-    } catch (err) {
-      push(err.message || 'Erro ao salvar', 'error')
-    }
+    } catch (err) { push(err.message || 'Erro ao salvar', 'error') }
   }
 
   async function handleSendComment(e) {
@@ -100,11 +109,8 @@ export default function TarefaDetailPage() {
       const c = await comentarioApi.criar(id, novoComentario.trim())
       setComentarios(prev => [...prev, c])
       setNovoComentario('')
-    } catch {
-      push('Erro ao comentar', 'error')
-    } finally {
-      setSending(false)
-    }
+    } catch { push('Erro ao comentar', 'error') }
+    finally { setSending(false) }
   }
 
   async function handleDeleteComment(cid) {
@@ -112,47 +118,44 @@ export default function TarefaDetailPage() {
       await comentarioApi.deletar(id, cid)
       setComentarios(prev => prev.filter(c => c.id !== cid))
       push('Comentário removido', 'success')
-    } catch {
-      push('Erro ao remover comentário', 'error')
-    }
+    } catch { push('Erro ao remover comentário', 'error') }
   }
 
-  function initials(nome) {
-    return (nome || 'U').split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase()
-  }
-
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', padding: '80px' }}>
-        <span className="spinner" />
-      </div>
-    )
-  }
+  if (loading) return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', padding: '80px' }}>
+      <span className="spinner" />
+    </div>
+  )
 
   if (!tarefa) return null
+
+  const pct = tarefa.concluida ? 100 : 0
 
   return (
     <div className={styles.page}>
       {/* ── Top bar ── */}
       <div className={styles.topBar}>
-        <button className="btn btn-ghost btn-sm" onClick={() => navigate('/app/tarefas')}>
+        <button className={styles.btnBack} onClick={() => navigate('/app/tarefas')}>
           <IconBack /> Voltar
         </button>
         <div className={styles.topActions}>
-          <button className="btn btn-outline btn-sm" onClick={() => setEditOpen(true)}>
+          <button className={styles.btnEdit} onClick={() => setEditOpen(true)}>
             <IconEdit /> Editar
           </button>
-          <button className="btn btn-sm" style={{ color: 'var(--red)', border: '1.5px solid transparent' }}
-            onClick={handleDelete}>
+          <button className={styles.btnDelete} onClick={handleDelete}>
             <IconTrash /> Excluir
           </button>
         </div>
       </div>
 
+      {/* ── Two-column layout ── */}
       <div className={styles.layout}>
-        {/* ── Main ── */}
+
+        {/* ── Coluna principal ── */}
         <div className={styles.main}>
-          <div className={`${styles.tarefaCard} card`}>
+
+          {/* Tarefa card */}
+          <div className={styles.tarefaCard}>
             <div className={styles.tarefaHeader}>
               <button
                 className={`${styles.bigCheck} ${tarefa.concluida ? styles.bigCheckDone : ''}`}
@@ -160,81 +163,69 @@ export default function TarefaDetailPage() {
                 disabled={toggling}
                 title={tarefa.concluida ? 'Reabrir tarefa' : 'Marcar como concluída'}
               >
-                {toggling ? (
-                  <span className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
-                ) : tarefa.concluida ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                    <path d="M5 13l4 4L19 7"/>
-                  </svg>
-                ) : null}
+                {toggling
+                  ? <span className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} />
+                  : tarefa.concluida ? <IconCheck /> : null}
               </button>
-
               <div className={styles.tarefaTitleWrap}>
-                <h1 className={`${styles.tarefaTitle} serif ${tarefa.concluida ? styles.tarefaTitleDone : ''}`}>
+                <h1 className={`${styles.tarefaTitle} ${tarefa.concluida ? styles.tarefaTitleDone : ''}`}>
                   {tarefa.titulo}
                 </h1>
-                <span className={`badge ${tarefa.concluida ? 'badge-done' : 'badge-pending'}`}>
+                <span className={`${styles.badge} ${tarefa.concluida ? styles.badgeDone : styles.badgePending}`}>
                   {tarefa.concluida ? 'Concluída' : 'Pendente'}
                 </span>
               </div>
             </div>
 
-            {tarefa.descricao ? (
-              <p className={styles.tarefaDesc}>{tarefa.descricao}</p>
-            ) : (
-              <p className={styles.tarefaDescEmpty}>Sem descrição</p>
-            )}
+            {tarefa.descricao
+              ? <p className={styles.tarefaDesc}>{tarefa.descricao}</p>
+              : <p className={styles.tarefaDescEmpty}>Sem descrição</p>
+            }
 
             <div className={styles.tarefaMeta}>
               <div className={styles.metaRow}>
                 <span className={styles.metaKey}>Criada em</span>
-                <span className={styles.metaVal}>
-                  {new Date(tarefa.dataCriacao).toLocaleString('pt-BR')}
-                </span>
+                <span className={styles.metaVal}>{new Date(tarefa.dataCriacao).toLocaleString('pt-BR')}</span>
               </div>
               {tarefa.atualizadaEm && (
                 <div className={styles.metaRow}>
                   <span className={styles.metaKey}>Atualizada em</span>
-                  <span className={styles.metaVal}>
-                    {new Date(tarefa.atualizadaEm).toLocaleString('pt-BR')}
-                  </span>
+                  <span className={styles.metaVal}>{new Date(tarefa.atualizadaEm).toLocaleString('pt-BR')}</span>
                 </div>
               )}
             </div>
           </div>
 
-          {/* ── Comments ── */}
+          {/* Comentários */}
           <div className={styles.commentsSection}>
-            <h2 className={`${styles.commentsTitle} serif`}>
+            <h2 className={styles.commentsTitle}>
+              <span className={styles.sideCardIcon}><IconChat /></span>
               Comentários
               <span className={styles.commentsBadge}>{comentarios.length}</span>
             </h2>
 
             {comentarios.length === 0 ? (
-              <div className="empty-state" style={{ padding: '32px' }}>
-                <div className="empty-icon" style={{ fontSize: '28px' }}>💬</div>
-                <p className="empty-title">Nenhum comentário</p>
-                <p className="empty-desc">Seja o primeiro a comentar nesta tarefa</p>
+              <div className={styles.emptyComments}>
+                <div className={styles.emptyCommentsIcon}>
+                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                  </svg>
+                </div>
+                <p className={styles.emptyCommentsText}>Nenhum comentário ainda</p>
+                <p className={styles.emptyCommentsDesc}>Seja o primeiro a comentar</p>
               </div>
             ) : (
               <div className={styles.commentsList}>
                 {comentarios.map(c => (
-                  <div key={c.id} className={`${styles.commentCard} card`}>
+                  <div key={c.id} className={styles.commentCard}>
                     <div className={styles.commentHeader}>
                       <div className={styles.commentAvatar}>{initials(c.nomeUsuario)}</div>
                       <div className={styles.commentMeta}>
                         <span className={styles.commentAuthor}>{c.nomeUsuario}</span>
-                        <span className={styles.commentDate}>
-                          {new Date(c.criadoEm).toLocaleString('pt-BR')}
-                        </span>
+                        <span className={styles.commentDate}>{new Date(c.criadoEm).toLocaleString('pt-BR')}</span>
                       </div>
                       {c.usuarioId === user?.id && (
-                        <button
-                          className="btn-icon"
-                          onClick={() => handleDeleteComment(c.id)}
-                          title="Excluir comentário"
-                          style={{ color: 'var(--red)', marginLeft: 'auto' }}
-                        >
+                        <button className={styles.iconBtnDanger} onClick={() => handleDeleteComment(c.id)} title="Excluir">
                           <IconTrash />
                         </button>
                       )}
@@ -245,13 +236,13 @@ export default function TarefaDetailPage() {
               </div>
             )}
 
-            {/* New comment form */}
+            {/* Formulário novo comentário */}
             <form onSubmit={handleSendComment} className={styles.commentForm}>
               <div className={styles.commentFormAvatar}>{initials(user?.nome)}</div>
               <div className={styles.commentInputWrap}>
                 <textarea
-                  className={`input ${styles.commentInput}`}
-                  placeholder="Escreva um comentário..."
+                  className={styles.commentInput}
+                  placeholder="Escreva um comentário... (Enter para enviar)"
                   value={novoComentario}
                   onChange={e => setNovoComentario(e.target.value)}
                   rows={2}
@@ -262,26 +253,86 @@ export default function TarefaDetailPage() {
                     }
                   }}
                 />
-                <button
-                  type="submit"
-                  className="btn btn-primary btn-sm"
-                  disabled={sending || !novoComentario.trim()}
-                  style={{ marginTop: '8px', alignSelf: 'flex-end' }}
-                >
-                  {sending ? <span className="spinner" style={{ width: 14, height: 14, borderWidth: 1.5 }} /> : <><IconSend /> Enviar</>}
+                <button type="submit" className={styles.btnSend}
+                  disabled={sending || !novoComentario.trim()}>
+                  {sending
+                    ? <span className="spinner" style={{ width: 13, height: 13, borderWidth: 1.5 }} />
+                    : <><IconSend /> Enviar</>}
                 </button>
               </div>
             </form>
           </div>
         </div>
+
+        {/* ── Sidebar direita ── */}
+        <div className={styles.sidebar}>
+
+          {/* Card de detalhes */}
+          <div className={styles.sideCard}>
+            <h3 className={styles.sideCardTitle}>
+              <span className={styles.sideCardIcon}><IconInfo /></span>
+              Detalhes
+            </h3>
+            <div className={styles.infoRow}>
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Status</span>
+                <span className={`${styles.badge} ${tarefa.concluida ? styles.badgeDone : styles.badgePending}`}
+                  style={{ width: 'fit-content', marginTop: 2 }}>
+                  {tarefa.concluida ? 'Concluída' : 'Pendente'}
+                </span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Criada em</span>
+                <span className={styles.infoValue}>
+                  {new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
+                </span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Horário</span>
+                <span className={styles.infoValue}>
+                  {new Date(tarefa.dataCriacao).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              </div>
+              {tarefa.atualizadaEm && (
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>Última atualização</span>
+                  <span className={styles.infoValue}>
+                    {new Date(tarefa.atualizadaEm).toLocaleString('pt-BR')}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Card de progresso */}
+          <div className={styles.sideCard}>
+            <h3 className={styles.sideCardTitle}>
+              <span className={styles.sideCardIcon}>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 13l4 4L19 7"/>
+                </svg>
+              </span>
+              Progresso
+            </h3>
+            <div className={styles.infoRow}>
+              <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Comentários</span>
+                <span className={styles.infoValue}>{comentarios.length} comentário{comentarios.length !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+            <div className={styles.progressTrack} style={{ marginTop: 14 }}>
+              <div className={styles.progressFill} style={{ width: `${pct}%` }} />
+            </div>
+            <p style={{ fontSize: 12, color: 'var(--ink-faint)', marginTop: 8, fontWeight: 600, textAlign: 'center' }}>
+              {tarefa.concluida ? 'Tarefa concluída!' : 'Tarefa em andamento'}
+            </p>
+          </div>
+
+        </div>
       </div>
 
       {editOpen && (
-        <TarefaModal
-          tarefa={tarefa}
-          onSave={handleEdit}
-          onClose={() => setEditOpen(false)}
-        />
+        <TarefaModal tarefa={tarefa} onSave={handleEdit} onClose={() => setEditOpen(false)} />
       )}
     </div>
   )
