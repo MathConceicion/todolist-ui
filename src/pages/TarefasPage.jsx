@@ -3,69 +3,70 @@ import { useNavigate } from 'react-router-dom'
 import { tarefaApi } from '../services/api'
 import { useToast } from '../context/ToastContext'
 import TarefaModal from '../components/TarefaModal'
+import ConfirmModal from '../components/ConfirmModal'
 import styles from './TarefasPage.module.css'
 
 /* ── Icons ── */
 const IconPlus = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-    <path d="M12 5v14M5 12h14" />
+    <path d="M12 5v14M5 12h14"/>
   </svg>
 )
 const IconEdit = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
   </svg>
 )
 const IconTrash = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
   </svg>
 )
 const IconComment = () => (
   <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
   </svg>
 )
 const IconList = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
   </svg>
 )
 const IconKanban = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="3" width="5" height="18" rx="1" /><rect x="10" y="3" width="5" height="12" rx="1" /><rect x="17" y="3" width="5" height="15" rx="1" />
+    <rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/>
   </svg>
 )
 const IconSort = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M7 12h10M11 18h2" />
+    <path d="M3 6h18M7 12h10M11 18h2"/>
   </svg>
 )
 const IconSearch = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
   </svg>
 )
 const IconEmptySearch = () => (
   <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-    <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
+    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
   </svg>
 )
 const IconEmptyList = () => (
   <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h4" />
+    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h4"/>
   </svg>
 )
 const IconCheck = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-    <path d="M5 13l4 4L19 7" />
+    <path d="M5 13l4 4L19 7"/>
   </svg>
 )
 
 const PRIORIDADES = {
-  baixa: { label: 'Baixa', color: '#6b9e6b', bg: '#e8f5e8', order: 0 },
-  normal: { label: 'Normal', color: '#7c5d8a', bg: '#f3eef7', order: 1 },
-  alta: { label: 'Alta', color: '#c07a20', bg: '#fef3e2', order: 2 },
+  baixa:   { label: 'Baixa',   color: '#6b9e6b', bg: '#e8f5e8', order: 0 },
+  normal:  { label: 'Normal',  color: '#7c5d8a', bg: '#f3eef7', order: 1 },
+  alta:    { label: 'Alta',    color: '#c07a20', bg: '#fef3e2', order: 2 },
   urgente: { label: 'Urgente', color: '#be185d', bg: '#fce7f3', order: 3 },
 }
 
@@ -76,19 +77,19 @@ const FILTERS = [
 ]
 
 const SORT_OPTIONS = [
-  { key: 'recentes', label: 'Mais recentes' },
-  { key: 'antigas', label: 'Mais antigas' },
-  { key: 'az', label: 'A → Z' },
-  { key: 'za', label: 'Z → A' },
+  { key: 'recentes',   label: 'Mais recentes' },
+  { key: 'antigas',    label: 'Mais antigas' },
+  { key: 'az',         label: 'A → Z' },
+  { key: 'za',         label: 'Z → A' },
   { key: 'prioridade', label: 'Prioridade' },
 ]
 
 function sortTarefas(list, key) {
   return [...list].sort((a, b) => {
-    if (key === 'recentes') return new Date(b.dataCriacao) - new Date(a.dataCriacao)
-    if (key === 'antigas') return new Date(a.dataCriacao) - new Date(b.dataCriacao)
-    if (key === 'az') return a.titulo.localeCompare(b.titulo)
-    if (key === 'za') return b.titulo.localeCompare(a.titulo)
+    if (key === 'recentes')   return new Date(b.dataCriacao) - new Date(a.dataCriacao)
+    if (key === 'antigas')    return new Date(a.dataCriacao) - new Date(b.dataCriacao)
+    if (key === 'az')         return a.titulo.localeCompare(b.titulo)
+    if (key === 'za')         return b.titulo.localeCompare(a.titulo)
     if (key === 'prioridade') {
       const pa = PRIORIDADES[a.prioridade]?.order ?? 1
       const pb = PRIORIDADES[b.prioridade]?.order ?? 1
@@ -150,7 +151,7 @@ function TaskCard({ t, onToggle, onEdit, onDelete, onNavigate, toggling, draggab
       <div className={styles.taskActions}>
         <button className={styles.iconBtn} onClick={() => onNavigate(t.id)} title="Comentários"><IconComment /></button>
         <button className={styles.iconBtn} onClick={() => onEdit(t)} title="Editar"><IconEdit /></button>
-        <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} onClick={() => onDelete(t.id)} title="Excluir"><IconTrash /></button>
+        <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} onClick={() => onDelete(t.id, t.titulo)} title="Excluir"><IconTrash /></button>
       </div>
     </div>
   )
@@ -175,7 +176,7 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
         </div>
         <button className={styles.kanbanAddBtn} onClick={onNew} title="Nova tarefa">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <path d="M12 5v14M5 12h14" />
+            <path d="M12 5v14M5 12h14"/>
           </svg>
         </button>
       </div>
@@ -216,7 +217,7 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
                 >
                   {toggling === t.id
                     ? <span style={{ width: 10, height: 10, borderWidth: 1.5, border: '1.5px solid #fce7f3', borderTopColor: 'white', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.7s linear infinite' }} />
-                    : t.concluida ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg> : null}
+                    : t.concluida ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M5 13l4 4L19 7"/></svg> : null}
                 </button>
                 <button className={styles.iconBtn} style={{ padding: 4 }} onClick={() => onEdit(t)}><IconEdit /></button>
                 <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} style={{ padding: 4 }} onClick={() => onDelete(t.id)}><IconTrash /></button>
@@ -241,6 +242,8 @@ export default function TarefasPage() {
   const [editTarget, setEditTarget] = useState(null)
   const [toggling, setToggling] = useState(null)
   const [showSort, setShowSort] = useState(false)
+  const [filterPrioridade, setFilterPrioridade] = useState('todas')
+  const [confirmDelete, setConfirmDelete] = useState(null) // { id, titulo }
   const { push } = useToast()
   const navigate = useNavigate()
 
@@ -282,14 +285,20 @@ export default function TarefasPage() {
     }
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Excluir esta tarefa?')) return
+  function handleDelete(id, titulo) {
+    setConfirmDelete({ id, titulo })
+  }
+
+  async function confirmDeleteFn() {
+    if (!confirmDelete) return
     try {
-      await tarefaApi.deletar(id)
-      setTarefas(prev => prev.filter(t => t.id !== id))
+      await tarefaApi.deletar(confirmDelete.id)
+      setTarefas(prev => prev.filter(t => t.id !== confirmDelete.id))
       push('Tarefa excluída', 'success')
     } catch {
       push('Erro ao excluir', 'error')
+    } finally {
+      setConfirmDelete(null)
     }
   }
 
@@ -342,6 +351,7 @@ export default function TarefasPage() {
         if (filter === 'concluidas') return t.concluida
         return true
       })
+      .filter(t => filterPrioridade === 'todas' || t.prioridade === filterPrioridade)
       .filter(t =>
         search.trim() === '' ||
         t.titulo.toLowerCase().includes(search.toLowerCase()) ||
@@ -393,6 +403,24 @@ export default function TarefasPage() {
           ))}
         </div>
 
+        {/* Filtro de prioridade */}
+        <div className={styles.prioridadeFilter}>
+          {['todas', 'urgente', 'alta', 'normal', 'baixa'].map(p => (
+            <button
+              key={p}
+              className={`${styles.prioridadeFilterBtn} ${filterPrioridade === p ? styles.prioridadeFilterActive : ''}`}
+              style={p !== 'todas' ? {
+                '--pf-color': PRIORIDADES[p]?.color,
+                '--pf-bg': PRIORIDADES[p]?.bg,
+              } : {}}
+              onClick={() => setFilterPrioridade(p)}
+            >
+              {p !== 'todas' && <span className={styles.prioridadeFilterDot} />}
+              {p === 'todas' ? 'Todas' : PRIORIDADES[p]?.label}
+            </button>
+          ))}
+        </div>
+
         <div className={styles.toolbarRight}>
           {/* Busca */}
           <div className={styles.searchWrap}>
@@ -426,7 +454,7 @@ export default function TarefasPage() {
                     {o.label}
                     {sort === o.key && (
                       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M5 13l4 4L19 7" />
+                        <path d="M5 13l4 4L19 7"/>
                       </svg>
                     )}
                   </button>
@@ -467,7 +495,7 @@ export default function TarefasPage() {
             tarefas={pendentes}
             onToggle={handleToggle}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={(id) => handleDelete(id, tarefas.find(t => t.id === id)?.titulo)}
             onNavigate={id => navigate(`/app/tarefas/${id}`)}
             toggling={toggling}
             onDropColumn={() => {
@@ -482,7 +510,7 @@ export default function TarefasPage() {
             tarefas={concluidas}
             onToggle={handleToggle}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={(id) => handleDelete(id, tarefas.find(t => t.id === id)?.titulo)}
             onNavigate={id => navigate(`/app/tarefas/${id}`)}
             toggling={toggling}
             onDropColumn={() => {
@@ -514,7 +542,7 @@ export default function TarefasPage() {
               t={t}
               onToggle={handleToggle}
               onEdit={handleEdit}
-              onDelete={handleDelete}
+              onDelete={(id) => handleDelete(id, tarefas.find(t => t.id === id)?.titulo)}
               onNavigate={id => navigate(`/app/tarefas/${id}`)}
               toggling={toggling}
               draggable
@@ -534,6 +562,16 @@ export default function TarefasPage() {
 
       {modalOpen && (
         <TarefaModal tarefa={editTarget} onSave={handleSave} onClose={() => setModalOpen(false)} />
+      )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          title="Excluir tarefa?"
+          message={`A tarefa "${confirmDelete.titulo}" será excluída permanentemente.`}
+          confirmLabel="Excluir"
+          onConfirm={confirmDeleteFn}
+          onCancel={() => setConfirmDelete(null)}
+        />
       )}
     </div>
   )

@@ -4,46 +4,55 @@ import { tarefaApi, comentarioApi } from '../services/api'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import TarefaModal from '../components/TarefaModal'
+import ConfirmModal from '../components/ConfirmModal'
 import styles from './TarefaDetailPage.module.css'
 
 const IconBack = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-    <path d="M19 12H5M5 12l7 7M5 12l7-7" />
+    <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
   </svg>
 )
 const IconTrash = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
   </svg>
 )
 const IconEdit = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
   </svg>
 )
 const IconSend = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
+    <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
   </svg>
 )
 const IconInfo = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" />
+    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
   </svg>
 )
 const IconChat = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
   </svg>
 )
 const IconCheck = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-    <path d="M5 13l4 4L19 7" />
+    <path d="M5 13l4 4L19 7"/>
   </svg>
 )
 
 function initials(nome) {
   return (nome || 'U').split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase()
+}
+
+
+const PRIORIDADES = {
+  baixa:   { label: 'Baixa',   color: '#6b9e6b', bg: '#e8f5e8' },
+  normal:  { label: 'Normal',  color: '#7c5d8a', bg: '#f3eef7' },
+  alta:    { label: 'Alta',    color: '#c07a20', bg: '#fef3e2' },
+  urgente: { label: 'Urgente', color: '#be185d', bg: '#fce7f3' },
 }
 
 export default function TarefaDetailPage() {
@@ -59,6 +68,7 @@ export default function TarefaDetailPage() {
   const [sending, setSending] = useState(false)
   const [toggling, setToggling] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   useEffect(() => {
     Promise.all([
@@ -84,7 +94,6 @@ export default function TarefaDetailPage() {
   }
 
   async function handleDelete() {
-    if (!confirm('Excluir esta tarefa?')) return
     try {
       await tarefaApi.deletar(id)
       push('Tarefa excluída', 'success')
@@ -142,7 +151,7 @@ export default function TarefaDetailPage() {
           <button className={styles.btnEdit} onClick={() => setEditOpen(true)}>
             <IconEdit /> Editar
           </button>
-          <button className={styles.btnDelete} onClick={handleDelete}>
+          <button className={styles.btnDelete} onClick={() => setConfirmDelete(true)}>
             <IconTrash /> Excluir
           </button>
         </div>
@@ -208,7 +217,7 @@ export default function TarefaDetailPage() {
               <div className={styles.emptyComments}>
                 <div className={styles.emptyCommentsIcon}>
                   <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
                   </svg>
                 </div>
                 <p className={styles.emptyCommentsText}>Nenhum comentário ainda</p>
@@ -282,6 +291,29 @@ export default function TarefaDetailPage() {
                 </span>
               </div>
               <div className={styles.infoItem}>
+                <span className={styles.infoLabel}>Prioridade</span>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  marginTop: 4,
+                  padding: '3px 12px',
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  background: PRIORIDADES[tarefa.prioridade]?.bg || '#f3eef7',
+                  color: PRIORIDADES[tarefa.prioridade]?.color || '#7c5d8a',
+                  width: 'fit-content',
+                }}>
+                  <span style={{
+                    width: 7, height: 7, borderRadius: '50%',
+                    background: PRIORIDADES[tarefa.prioridade]?.color || '#7c5d8a',
+                    flexShrink: 0,
+                  }}/>
+                  {PRIORIDADES[tarefa.prioridade]?.label || 'Normal'}
+                </span>
+              </div>
+              <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Criada em</span>
                 <span className={styles.infoValue}>
                   {new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}
@@ -309,7 +341,7 @@ export default function TarefaDetailPage() {
             <h3 className={styles.sideCardTitle}>
               <span className={styles.sideCardIcon}>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 13l4 4L19 7" />
+                  <path d="M5 13l4 4L19 7"/>
                 </svg>
               </span>
               Progresso
@@ -333,6 +365,16 @@ export default function TarefaDetailPage() {
 
       {editOpen && (
         <TarefaModal tarefa={tarefa} onSave={handleEdit} onClose={() => setEditOpen(false)} />
+      )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          title="Excluir tarefa?"
+          message={`A tarefa "${tarefa.titulo}" será excluída permanentemente.`}
+          confirmLabel="Excluir"
+          onConfirm={handleDelete}
+          onCancel={() => setConfirmDelete(false)}
+        />
       )}
     </div>
   )

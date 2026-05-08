@@ -200,6 +200,36 @@
   font-weight: 400;
 }
 
+.inputWrap {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrap .input {
+  padding-right: 44px;
+}
+
+.eyeBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-faint, #c4aec8);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: color 0.15s;
+  line-height: 0;
+}
+
+.eyeBtn:hover {
+  color: #c084b0;
+}
+
 .btnSubmit {
   width: 100%;
   padding: 22px 24px;
