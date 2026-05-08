@@ -8,37 +8,37 @@ import styles from './TarefaDetailPage.module.css'
 
 const IconBack = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-    <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+    <path d="M19 12H5M5 12l7 7M5 12l7-7" />
   </svg>
 )
 const IconTrash = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
   </svg>
 )
 const IconEdit = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
   </svg>
 )
 const IconSend = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
+    <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
   </svg>
 )
 const IconInfo = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+    <circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" />
   </svg>
 )
 const IconChat = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
   </svg>
 )
 const IconCheck = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-    <path d="M5 13l4 4L19 7"/>
+    <path d="M5 13l4 4L19 7" />
   </svg>
 )
 
@@ -76,7 +76,7 @@ export default function TarefaDetailPage() {
   async function handleToggle() {
     setToggling(true)
     try {
-      const updated = await tarefaApi.atualizar(tarefa.id, tarefa.titulo, tarefa.descricao, !tarefa.concluida)
+      const updated = await tarefaApi.atualizar(tarefa.id, tarefa.titulo, tarefa.descricao, !tarefa.concluida, tarefa.prioridade)
       setTarefa(updated)
       push(updated.concluida ? 'Tarefa concluída!' : 'Tarefa reaberta', 'success')
     } catch { push('Erro ao atualizar', 'error') }
@@ -92,9 +92,9 @@ export default function TarefaDetailPage() {
     } catch { push('Erro ao excluir', 'error') }
   }
 
-  async function handleEdit(titulo, descricao) {
+  async function handleEdit(titulo, descricao, prioridade = 'normal') {
     try {
-      const updated = await tarefaApi.atualizar(tarefa.id, titulo, descricao, tarefa.concluida)
+      const updated = await tarefaApi.atualizar(tarefa.id, titulo, descricao, tarefa.concluida, prioridade)
       setTarefa(updated)
       push('Tarefa atualizada!', 'success')
       setEditOpen(false)
@@ -208,7 +208,7 @@ export default function TarefaDetailPage() {
               <div className={styles.emptyComments}>
                 <div className={styles.emptyCommentsIcon}>
                   <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
                   </svg>
                 </div>
                 <p className={styles.emptyCommentsText}>Nenhum comentário ainda</p>
@@ -309,7 +309,7 @@ export default function TarefaDetailPage() {
             <h3 className={styles.sideCardTitle}>
               <span className={styles.sideCardIcon}>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 13l4 4L19 7"/>
+                  <path d="M5 13l4 4L19 7" />
                 </svg>
               </span>
               Progresso

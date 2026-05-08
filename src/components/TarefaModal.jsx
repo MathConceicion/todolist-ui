@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import modalStyles from './TarefaModal.module.css'
 
 const IconX = () => (
   <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -6,9 +7,17 @@ const IconX = () => (
   </svg>
 )
 
+const PRIORIDADES = [
+  { key: 'baixa', label: 'Baixa', color: '#6b9e6b', bg: '#e8f5e8' },
+  { key: 'normal', label: 'Normal', color: '#7c5d8a', bg: '#f3eef7' },
+  { key: 'alta', label: 'Alta', color: '#c07a20', bg: '#fef3e2' },
+  { key: 'urgente', label: 'Urgente', color: '#be185d', bg: '#fce7f3' },
+]
+
 export default function TarefaModal({ tarefa, onSave, onClose }) {
   const [titulo, setTitulo] = useState(tarefa?.titulo || '')
   const [descricao, setDescricao] = useState(tarefa?.descricao || '')
+  const [prioridade, setPrioridade] = useState(tarefa?.prioridade || 'normal')
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -22,7 +31,7 @@ export default function TarefaModal({ tarefa, onSave, onClose }) {
     if (!titulo.trim()) return
     setSaving(true)
     try {
-      await onSave(titulo.trim(), descricao.trim())
+      await onSave(titulo.trim(), descricao.trim(), prioridade)
     } finally {
       setSaving(false)
     }
@@ -34,9 +43,7 @@ export default function TarefaModal({ tarefa, onSave, onClose }) {
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
         <div className="modal-header">
-          <h2 className="modal-title">
-            {isEdit ? 'Editar tarefa' : 'Nova tarefa'}
-          </h2>
+          <h2 className="modal-title">{isEdit ? 'Editar tarefa' : 'Nova tarefa'}</h2>
           <button className="btn-icon" onClick={onClose} style={{ border: 'none' }}>
             <IconX />
           </button>
@@ -69,6 +76,27 @@ export default function TarefaModal({ tarefa, onSave, onClose }) {
                 rows={3}
               />
             </div>
+
+            <div className="field">
+              <label>Prioridade</label>
+              <div className={modalStyles.prioridadeGrid}>
+                {PRIORIDADES.map(p => (
+                  <button
+                    key={p.key}
+                    type="button"
+                    className={`${modalStyles.prioridadeBtn} ${prioridade === p.key ? modalStyles.prioridadeBtnActive : ''}`}
+                    style={{
+                      '--p-color': p.color,
+                      '--p-bg': p.bg,
+                    }}
+                    onClick={() => setPrioridade(p.key)}
+                  >
+                    <span className={modalStyles.prioridadeDot} />
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="modal-footer">
@@ -82,8 +110,7 @@ export default function TarefaModal({ tarefa, onSave, onClose }) {
             >
               {saving
                 ? <span className="spinner" style={{ width: 16, height: 16, borderWidth: 2, borderTopColor: '#fff' }} />
-                : isEdit ? 'Salvar' : 'Criar tarefa'
-              }
+                : isEdit ? 'Salvar' : 'Criar tarefa'}
             </button>
           </div>
         </form>

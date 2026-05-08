@@ -1,0 +1,50 @@
+.prioridadeGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.prioridadeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 2px solid var(--border, #e8b4d4);
+    border-radius: 999px;
+    background: var(--canvas-raised, white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-muted, #7c5d8a);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.prioridadeBtn:hover {
+    background: var(--p-bg);
+    color: var(--p-color);
+    border-color: var(--p-color);
+}
+
+.prioridadeBtnActive {
+    background: var(--p-bg) !important;
+    color: var(--p-color) !important;
+    border-color: var(--p-color) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.prioridadeDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--p-color);
+    flex-shrink: 0;
+}
+
+@media (max-width: 400px) {
+    .prioridadeGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

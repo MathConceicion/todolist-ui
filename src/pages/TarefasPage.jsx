@@ -8,59 +8,66 @@ import styles from './TarefasPage.module.css'
 /* ── Icons ── */
 const IconPlus = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-    <path d="M12 5v14M5 12h14"/>
+    <path d="M12 5v14M5 12h14" />
   </svg>
 )
 const IconEdit = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
   </svg>
 )
 const IconTrash = () => (
   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
   </svg>
 )
 const IconComment = () => (
   <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
   </svg>
 )
 const IconList = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
   </svg>
 )
 const IconKanban = () => (
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/>
+    <rect x="3" y="3" width="5" height="18" rx="1" /><rect x="10" y="3" width="5" height="12" rx="1" /><rect x="17" y="3" width="5" height="15" rx="1" />
   </svg>
 )
 const IconSort = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <path d="M3 6h18M7 12h10M11 18h2"/>
+    <path d="M3 6h18M7 12h10M11 18h2" />
   </svg>
 )
 const IconSearch = () => (
   <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
   </svg>
 )
 const IconEmptySearch = () => (
   <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+    <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35M11 8v6M8 11h6" />
   </svg>
 )
 const IconEmptyList = () => (
   <svg width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3">
-    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h4"/>
+    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 12h6M9 16h4" />
   </svg>
 )
 const IconCheck = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-    <path d="M5 13l4 4L19 7"/>
+    <path d="M5 13l4 4L19 7" />
   </svg>
 )
+
+const PRIORIDADES = {
+  baixa: { label: 'Baixa', color: '#6b9e6b', bg: '#e8f5e8', order: 0 },
+  normal: { label: 'Normal', color: '#7c5d8a', bg: '#f3eef7', order: 1 },
+  alta: { label: 'Alta', color: '#c07a20', bg: '#fef3e2', order: 2 },
+  urgente: { label: 'Urgente', color: '#be185d', bg: '#fce7f3', order: 3 },
+}
 
 const FILTERS = [
   { key: 'todas', label: 'Todas' },
@@ -73,14 +80,20 @@ const SORT_OPTIONS = [
   { key: 'antigas', label: 'Mais antigas' },
   { key: 'az', label: 'A → Z' },
   { key: 'za', label: 'Z → A' },
+  { key: 'prioridade', label: 'Prioridade' },
 ]
 
 function sortTarefas(list, key) {
   return [...list].sort((a, b) => {
     if (key === 'recentes') return new Date(b.dataCriacao) - new Date(a.dataCriacao)
-    if (key === 'antigas')  return new Date(a.dataCriacao) - new Date(b.dataCriacao)
-    if (key === 'az')       return a.titulo.localeCompare(b.titulo)
-    if (key === 'za')       return b.titulo.localeCompare(a.titulo)
+    if (key === 'antigas') return new Date(a.dataCriacao) - new Date(b.dataCriacao)
+    if (key === 'az') return a.titulo.localeCompare(b.titulo)
+    if (key === 'za') return b.titulo.localeCompare(a.titulo)
+    if (key === 'prioridade') {
+      const pa = PRIORIDADES[a.prioridade]?.order ?? 1
+      const pb = PRIORIDADES[b.prioridade]?.order ?? 1
+      return pb - pa // urgente primeiro
+    }
     return 0
   })
 }
@@ -114,6 +127,14 @@ function TaskCard({ t, onToggle, onEdit, onDelete, onNavigate, toggling, draggab
           <span className={`${styles.badge} ${t.concluida ? styles.badgeDone : styles.badgePending}`}>
             {t.concluida ? 'Concluída' : 'Pendente'}
           </span>
+          {t.prioridade && t.prioridade !== 'normal' && (
+            <span className={styles.prioridadeBadge} style={{
+              background: PRIORIDADES[t.prioridade]?.bg,
+              color: PRIORIDADES[t.prioridade]?.color,
+            }}>
+              {PRIORIDADES[t.prioridade]?.label}
+            </span>
+          )}
         </div>
         {t.descricao && <p className={styles.taskDesc}>{t.descricao}</p>}
         <div className={styles.taskMeta}>
@@ -154,7 +175,7 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
         </div>
         <button className={styles.kanbanAddBtn} onClick={onNew} title="Nova tarefa">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <path d="M12 5v14M5 12h14"/>
+            <path d="M12 5v14M5 12h14" />
           </svg>
         </button>
       </div>
@@ -169,7 +190,18 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
               onDragStart={e => e.dataTransfer.setData('tarefaId', t.id)}
             >
               <div className={styles.kanbanCardBody} onClick={() => onNavigate(t.id)}>
-                <p className={`${styles.kanbanCardTitle} ${t.concluida ? styles.taskTitleDone : ''}`}>{t.titulo}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <p className={`${styles.kanbanCardTitle} ${t.concluida ? styles.taskTitleDone : ''}`} style={{ margin: 0 }}>{t.titulo}</p>
+                  {t.prioridade && t.prioridade !== 'normal' && (
+                    <span className={styles.prioridadeBadge} style={{
+                      background: PRIORIDADES[t.prioridade]?.bg,
+                      color: PRIORIDADES[t.prioridade]?.color,
+                      fontSize: 10,
+                    }}>
+                      {PRIORIDADES[t.prioridade]?.label}
+                    </span>
+                  )}
+                </div>
                 {t.descricao && <p className={styles.kanbanCardDesc}>{t.descricao}</p>}
                 <div className={styles.kanbanCardMeta}>
                   <span className={styles.metaItem}>
@@ -184,7 +216,7 @@ function KanbanColumn({ title, color, tarefas, onToggle, onEdit, onDelete, onNav
                 >
                   {toggling === t.id
                     ? <span style={{ width: 10, height: 10, borderWidth: 1.5, border: '1.5px solid #fce7f3', borderTopColor: 'white', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.7s linear infinite' }} />
-                    : t.concluida ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M5 13l4 4L19 7"/></svg> : null}
+                    : t.concluida ? <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg> : null}
                 </button>
                 <button className={styles.iconBtn} style={{ padding: 4 }} onClick={() => onEdit(t)}><IconEdit /></button>
                 <button className={`${styles.iconBtn} ${styles.iconBtnDanger}`} style={{ padding: 4 }} onClick={() => onDelete(t.id)}><IconTrash /></button>
@@ -240,9 +272,9 @@ export default function TarefasPage() {
   async function handleToggle(t) {
     setToggling(t.id)
     try {
-      const updated = await tarefaApi.atualizar(t.id, t.titulo, t.descricao, !t.concluida)
+      const updated = await tarefaApi.atualizar(t.id, t.titulo, t.descricao, !t.concluida, t.prioridade)
       setTarefas(prev => prev.map(x => x.id === t.id ? updated : x))
-      push(updated.concluida ? '✓ Tarefa concluída!' : 'Tarefa reaberta', 'success')
+      push(updated.concluida ? 'Tarefa concluída!' : 'Tarefa reaberta', 'success')
     } catch {
       push('Erro ao atualizar tarefa', 'error')
     } finally {
@@ -264,14 +296,14 @@ export default function TarefasPage() {
   function handleEdit(t) { setEditTarget(t); setModalOpen(true) }
   function handleNew() { setEditTarget(null); setModalOpen(true) }
 
-  async function handleSave(titulo, descricao) {
+  async function handleSave(titulo, descricao, prioridade = 'normal') {
     try {
       if (editTarget) {
-        const updated = await tarefaApi.atualizar(editTarget.id, titulo, descricao, editTarget.concluida)
+        const updated = await tarefaApi.atualizar(editTarget.id, titulo, descricao, editTarget.concluida, prioridade)
         setTarefas(prev => prev.map(t => t.id === editTarget.id ? updated : t))
         push('Tarefa atualizada!', 'success')
       } else {
-        const nova = await tarefaApi.criar(titulo, descricao)
+        const nova = await tarefaApi.criar(titulo, descricao, prioridade)
         setTarefas(prev => [nova, ...prev])
         push('Tarefa criada!', 'success')
       }
@@ -286,9 +318,9 @@ export default function TarefasPage() {
     const t = tarefas.find(x => x.id === tarefaId)
     if (!t || t.concluida === concluida) return
     try {
-      const updated = await tarefaApi.atualizar(t.id, t.titulo, t.descricao, concluida)
+      const updated = await tarefaApi.atualizar(t.id, t.titulo, t.descricao, concluida, t.prioridade)
       setTarefas(prev => prev.map(x => x.id === t.id ? updated : x))
-      push(concluida ? '✓ Movida para Concluídas' : 'Movida para Pendentes', 'success')
+      push(concluida ? 'Movida para Concluídas' : 'Movida para Pendentes', 'success')
     } catch {
       push('Erro ao mover tarefa', 'error')
     }
@@ -394,7 +426,7 @@ export default function TarefasPage() {
                     {o.label}
                     {sort === o.key && (
                       <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M5 13l4 4L19 7"/>
+                        <path d="M5 13l4 4L19 7" />
                       </svg>
                     )}
                   </button>
