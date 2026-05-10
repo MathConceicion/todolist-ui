@@ -48,3 +48,55 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* ── Data de vencimento ── */
+.fieldIcon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 4px;
+    color: var(--pink, #c084b0);
+    vertical-align: middle;
+}
+
+.fieldOptional {
+    font-size: 11px;
+    color: var(--ink-faint, #c4aec8);
+    font-weight: 500;
+    margin-left: 6px;
+    background: var(--canvas-sunken, #fce7f3);
+    padding: 1px 8px;
+    border-radius: 99px;
+    vertical-align: middle;
+}
+
+.dateWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dateInput {
+    flex: 1;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.dateClearBtn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--red, #be185d);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    transition: background 0.15s;
+}
+
+.dateClearBtn:hover {
+    background: var(--red-bg, #ffe4f0);
+}

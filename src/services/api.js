@@ -47,16 +47,16 @@ export const tarefaApi = {
 
   buscar: (id) => request(`/tarefa/${id}`),
 
-  criar: (titulo, descricao, prioridade = 'normal') =>
+  criar: (titulo, descricao, prioridade = 'normal', dataVencimento = null) =>
     request('/tarefa', {
       method: 'POST',
-      body: JSON.stringify({ titulo, descricao, prioridade }),
+      body: JSON.stringify({ titulo, descricao, prioridade, dataVencimento }),
     }),
 
-  atualizar: (id, titulo, descricao, concluida, prioridade = 'normal') =>
+  atualizar: (id, titulo, descricao, concluida, prioridade = 'normal', dataVencimento = null) =>
     request(`/tarefa/${id}`, {
       method: 'PUT',
-      body: JSON.stringify({ titulo, descricao, concluida, prioridade }),
+      body: JSON.stringify({ titulo, descricao, concluida, prioridade, dataVencimento }),
     }),
 
   deletar: (id) =>
